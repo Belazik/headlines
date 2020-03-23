@@ -3,11 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
     <title>Headlines</title>
 </head>
 <body>
-    <h1>News</h1>
+    <div id="header">
+        <div id = "inner-header">
+            <h1>Headlines</h1>
+            <p>News. Currency. Weather. Short.</p>
+        </div>
+        <hr />
+    </div>
+    <div id = "main">
+    <h2>Current weather</h2>
     <form>
+        <input type="text" name="city" placeholder="Enter City" />
+        <input type="submit" value="Submit" />
+    </form>
+    <p>City:<b>{{weather.city}}, {{weather.country}}</b></p>
+    <p>{{weather.description}} | {{weather.temperature}}&#8451;</p>
+    <h2>Currency rate</h2>
+    <form>
+        from: <select name="currency_from">
+            {%for rate in currency.all%}
+            <option value="{{rate}}" {{'selected="selected"' if currency.from == rate}}>{{rate}}</option>
+            {% endfor %}
+        </select>
+        to: <select name="currency_to">
+            {%for rate in currency.all%}
+            <option value="{{rate}}" {{'selected="selected"' if currency.to == rate}}>{{rate}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    1 {{currency.from}} = {{currency.to}} {{currency.rate}}
+
+    <form>
+
         <input type="text" name="publication" placeholder="search" />
         <input type="submit" value="Submit">
     </form>
@@ -17,5 +49,6 @@
     <p>{{article.summary}}</p><br />
     <hr />
     {% endfor %}
+    </div>
 </body>
 </html>
